@@ -1,12 +1,11 @@
 # NovaAI
 
-> A real-time voice AI assistant that connects a browser or ESP32 hardware device to Gemini Live, streams microphone audio, plays spoken responses, and controls room RGB lighting.
+> **An open-source real-time AI voice assistant combining ESP32 hardware, FastAPI, and Gemini Live.**
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-WebSocket-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![ESP32](https://img.shields.io/badge/ESP32-I2S%20Voice-000000?style=for-the-badge&logo=espressif&logoColor=white)
 ![Gemini](https://img.shields.io/badge/Gemini-Live%20API-4285F4?style=for-the-badge&logo=google&logoColor=white)
-![Status](https://img.shields.io/badge/status-prototype-orange?style=for-the-badge)
 
 NovaAI is a local voice gateway for building a physical AI assistant. The Python server accepts real-time PCM audio over WebSockets, forwards it to Gemini Live, streams generated speech back, and sends control commands to an ESP32-powered hardware device.
 
@@ -50,34 +49,54 @@ The interesting part is not just calling an AI API. It is the full pipeline:
 
 ```mermaid
 flowchart LR
-    Browser["Browser UI<br/>Web Audio API"] -->|PCM 16 kHz binary WS| Server["FastAPI Server<br/>app.py"]
-    ESP32["ESP32 Device<br/>NovaAI.ino"] -->|PCM 16 kHz binary WS| Server
-    Server -->|Realtime input| Gemini["Gemini Live API"]
-    Gemini -->|PCM 24 kHz audio + tool calls| Server
-    Server -->|Audio bytes + text commands| Browser
-    Server -->|Audio bytes + RGB/SLEEP commands| ESP32
-    ESP32 --> Mic["INMP441 Mic"]
-    ESP32 --> Speaker["MAX98357A Speaker"]
-    ESP32 --> Led["WS2812B LED Ring"]
-    ESP32 --> IR["IR RGB Controller"]
+
+Browser["Browser UI<br/>Web Audio API"]
+
+Server["FastAPI Server<br/>app.py"]
+
+Gemini["Gemini Live API"]
+
+ESP32["ESP32 Device<br/>NovaAI.ino"]
+
+Mic["INMP441 Microphone"]
+Amp["MAX98357A I2S Amplifier"]
+Speaker["Speaker"]
+LED["WS2812B LED Ring"]
+IR["IR RGB Controller"]
+
+Browser -->|PCM 16 kHz Audio| Server
+Server -->|Browser Audio + Text| Browser
+
+ESP32 -->|PCM 16 kHz Audio| Server
+Server -->|PCM 24 kHz Audio + Device Commands| ESP32
+
+Server <-->|Realtime Audio & Tool Calls| Gemini
+
+Mic --> ESP32
+ESP32 --> Amp
+Amp --> Speaker
+ESP32 --> LED
+ESP32 --> IR
 ```
 
 ## Tech Stack
 
+### Software
 - Python
 - FastAPI
-- Uvicorn
-- Google GenAI SDK
-- Gemini Live API
+- Gemini Live
 - WebSockets
-- Browser Web Audio API
-- ESP32 Arduino
-- FreeRTOS tasks
-- I2S audio
-- INMP441 microphone
-- MAX98357A amplifier
-- WS2812B LED ring
-- IRremoteESP8266
+
+### Hardware
+- ESP32
+- INMP441
+- MAX98357A
+- WS2812B
+
+### Protocols
+- I2S
+- PCM Audio
+- WebSockets
 
 ## Folder Structure
 
@@ -117,9 +136,10 @@ For the ESP32 firmware, install these Arduino libraries:
 
 ## Configuration
 
-Current prototype configuration is stored directly in source files:
+For simplicity during development, some configuration values are currently stored in source files.
 
-- Gemini API key in `app.py`
+Before production or wider deployment, these should be moved to environment variables or external configuration files.
+
 - Wi-Fi SSID/password in `NovaAI.ino`
 - server IP and port in `NovaAI.ino`
 

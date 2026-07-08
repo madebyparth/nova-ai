@@ -4,17 +4,6 @@ NovaAI is currently a local prototype. Before publishing or deploying it beyond 
 
 ## Critical Issues
 
-### Hardcoded Gemini API Key
-
-`app.py` currently initializes the Google GenAI client with a hardcoded API key. This should be treated as compromised if the repository is shared.
-
-Recommended action:
-
-1. Revoke or rotate the key.
-2. Move the new key into an environment variable.
-3. Load it at runtime.
-4. Keep `.env` ignored by Git.
-
 ### Hardcoded Wi-Fi Credentials
 
 `NovaAI.ino` currently includes Wi-Fi credentials. These should not be published.
