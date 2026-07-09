@@ -253,16 +253,6 @@ For every ESP32 connection, the server:
 6.  Receive spoken responses.
 7.  Control connected hardware naturally.
 
-## Screenshots
-
-> 🚧 The following visuals will be added soon:
-
--   Browser voice hub connected
--   ESP32 hardware build
--   Serial Monitor connection logs
--   LED ring in listening, thinking, and speaking states
--   RGB light control demo
-
 ## Documentation
 
 -   [Architecture](docs/Architecture.md)
