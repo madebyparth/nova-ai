@@ -20,7 +20,7 @@ hardware such as RGB lighting in real time.
 > 🚧 Demo GIF coming soon.
 
 ``` text
-docs/assets/novaai-demo.gif
+docs/assets/demo.mp4
 ```
 
 <video src="assets/demo.mp4" controls width="700"></video>
