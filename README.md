@@ -15,13 +15,9 @@ It captures audio from an INMP441 microphone, streams it through a
 FastAPI server, receives spoken responses, and controls physical
 hardware such as RGB lighting in real time.
 
-## Demo
+## 🎥 Demo
 
-> 🚧 Demo GIF coming soon.
-
-``` text
-docs/assets/demo.mp4
-```
+➡️ **[Watch the full demo video](assets/demo.mp4)**
 
 <video src="assets/demo.mp4" controls width="700"></video>
 
