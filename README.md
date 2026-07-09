@@ -1,8 +1,12 @@
 # NovaAI
 
-[![NovaAI Demo](assets/demo-thumbnail.png)](assets/demo.mp4)
+[![Watch the NovaAI Demo](assets/demo-thumbnail.png)](https://youtu.be/atcwI0s3jn0)
 
-**🎥 Click the image above to watch the full 36-second demo.**
+<p align="center">
+<b>▶ Click the thumbnail above to watch the 36-second demo.</b>
+</p>
+
+> An open-source ESP32-powered AI voice assistant built with FastAPI and Gemini Live.
 
 > An open-source ESP32-powered AI voice assistant built with FastAPI and Gemini Live.
 
