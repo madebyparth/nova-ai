@@ -63,7 +63,7 @@ sequenceDiagram
     S->>E: RGB_BLUE
     E->>H: IR NEC command
     G->>S: end_chat_session
-    S->>E: SLEEP
+    S->>E: SLEEP_COMMAND
 ```
 
 ## Control Commands
@@ -79,7 +79,7 @@ sequenceDiagram
 
 | Command | Sender | Receiver | Description |
 | --- | --- | --- | --- |
-| `SLEEP` | server | ESP32 | Disconnect and enter sleeping state. |
+| `SLEEP_COMMAND` | server | ESP32 | Disconnect and enter sleeping state. |
 | `RGB_ON` | server | ESP32 | Turn RGB lights on through IR. |
 | `RGB_OFF` | server | ESP32 | Turn RGB lights off through IR. |
 | `RGB_RED` | server | ESP32 | Set RGB lights red through IR. |

@@ -6,9 +6,7 @@
 <b>▶ Click the thumbnail above to watch the 36-second demo.</b>
 </p>
 
-> An open-source ESP32-powered AI voice assistant built with FastAPI and Gemini Live.
-
-> An open-source ESP32-powered AI voice assistant built with FastAPI and Gemini Live.
+> An open-source ESP32-powered AI voice assistant built with FastAPI and Gemini Live, featuring real-time voice conversations, hardware control, and Gemini function calling.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-WebSocket-009688?style=for-the-badge&logo=fastapi&logoColor=white)
@@ -28,17 +26,16 @@ hardware such as RGB lighting in real time.
 
 ## Features
 
--   ESP32 hardware voice endpoint at `/esp32`
--   Gemini Live audio-to-audio conversation bridge
--   16 kHz PCM microphone input streaming
--   24 kHz PCM assistant audio playback
--   Barge-in handling with audio queue clearing
--   ESP32 I2S microphone support for INMP441
--   ESP32 I2S speaker output for MAX98357A
--   WS2812B LED ring state feedback
--   IR-based RGB lighting control tools
--   Graceful session close flow using Gemini function calls
--   ESP32-side jitter buffer and dedicated speaker task
+- Real-time voice conversations using Gemini Live
+- ESP32 ↔ FastAPI WebSocket bridge
+- INMP441 I2S microphone streaming (16 kHz PCM)
+- MAX98357A I2S speaker playback (24 kHz PCM)
+- Stream pacing and jitter buffering for smoother playback
+- Barge-in support while Nova is speaking
+- WS2812B LED ring status (Booting / Connecting / Listening / Thinking / Speaking)
+- Gemini function calling
+- IR-based RGB lighting control
+- Graceful sleep/session handling
 
 ## Why This Exists
 
@@ -169,23 +166,73 @@ The ESP32 connects to:
 ws://<server-ip>:8000/esp32
 ```
 
-## ESP32 Setup
+## ESP32 Hardware Connections
 
-Hardware used by the current firmware:
+### Hardware
 
-  Component      Purpose                 Pins
-  -------------- ----------------------- -------------------------------
-  INMP441        I2S microphone          WS `5`, SCK `18`, SD `32`
-  MAX98357A      I2S speaker amplifier   LRC `19`, BCLK `21`, DIN `22`
-  WS2812B ring   Nova state indicator    DATA `4`
-  IR LED         RGB remote control      DATA `25`
+| Component | Model |
+|----------|-------|
+| Microcontroller | ESP32 NodeMCU-32S |
+| Microphone | INMP441 |
+| Amplifier | MAX98357A |
+| LED Ring | WS2812B (12 LEDs) |
+| IR LED | 940nm IR LED |
 
-Upload `NovaAI.ino` with the Arduino IDE after setting:
+### INMP441 I2S Microphone
 
--   Wi-Fi SSID
--   Wi-Fi password
--   server IP address
--   server port
+| INMP441 | ESP32 |
+|---------|-------|
+| VCC | 3.3V |
+| GND | GND |
+| WS | GPIO 5 |
+| SCK | GPIO 18 |
+| SD | GPIO 32 |
+| L/R | GND |
+
+### MAX98357A I2S Amplifier
+
+| MAX98357A | ESP32 |
+|-----------|-------|
+| VIN | 5V |
+| GND | GND |
+| LRC | GPIO 19 |
+| BCLK | GPIO 21 |
+| DIN | GPIO 22 |
+
+Speaker:
+- SPK+ → Speaker +
+- SPK− → Speaker −
+
+### WS2812B LED Ring
+
+| WS2812B | ESP32 |
+|----------|-------|
+| DI | GPIO 4 |
+| 5V | 5V |
+| GND | GND |
+| DO | Not Connected |
+
+### IR LED
+
+| IR LED | ESP32 |
+|---------|-------|
+| Anode (+) | GPIO 25 (through a current-limiting resistor) |
+| Cathode (-) | GND |
+
+### GPIO Summary
+
+| GPIO | Purpose |
+|------|---------|
+| 4 | WS2812B LED Ring |
+| 5 | INMP441 WS |
+| 18 | INMP441 SCK |
+| 19 | MAX98357A LRC |
+| 21 | MAX98357A BCLK |
+| 22 | MAX98357A DIN |
+| 25 | IR LED |
+| 32 | INMP441 SD |
+
+> **Note:** All modules share a common ground.
 
 ## AI Server Setup
 
@@ -199,23 +246,6 @@ For every ESP32 connection, the server:
 -   streams generated speech back
 -   executes Gemini tool calls
 -   sends device commands (RGB, Sleep, etc.) to the ESP32
-
-## Environment Variables
-
-The current code does not yet read environment variables. These are the
-recommended variables for the next cleanup pass:
-
-``` bash
-GEMINI_API_KEY=your_gemini_api_key_here
-NOVA_HOST=0.0.0.0
-NOVA_PORT=8000
-NOVA_MODEL=gemini-3.1-flash-live-preview
-NOVA_VOICE=Aoede
-ESP32_WIFI_SSID=your_wifi_name
-ESP32_WIFI_PASSWORD=your_wifi_password
-ESP32_SERVER_HOST=192.168.1.100
-ESP32_SERVER_PORT=8000
-```
 
 ## Usage Examples
 
@@ -237,19 +267,6 @@ ESP32_SERVER_PORT=8000
 -   LED ring in listening, thinking, and speaking states
 -   RGB light control demo
 
-## Planned Demo
-
-> Suggested video timeline:
-
--   `0:00` - Hardware overview
--   `0:20` - Server startup
--   `0:35` - Browser voice demo
--   `1:10` - ESP32 wake and connection
--   `1:40` - Real-time voice conversation
--   `2:20` - Barge-in interruption
--   `2:45` - RGB light control
--   `3:10` - Goodbye and sleep flow
-
 ## Documentation
 
 -   [Architecture](docs/Architecture.md)
@@ -266,27 +283,19 @@ ESP32_SERVER_PORT=8000
 
 ## Future Roadmap
 
--   Split server, prompts, tools, and frontend into separate modules
--   Add structured logging
--   Add authentication for WebSocket endpoints
--   Add a proper memory/session store
--   Add health checks and diagnostics
--   Add Docker deployment
--   Add PlatformIO support
--   Add CI for linting and docs checks
--   Add audio format negotiation and protocol versioning
+- Wake-word detection
+- Lower end-to-end audio latency
+- Improved IR transmission range
+- Backend modularization
+- Docker support
+- Authentication for remote deployments
 
 ## Known Limitations
 
--   API keys and Wi-Fi credentials are currently hardcoded and must be
-    removed before public release.
--   WebSocket endpoints are unauthenticated.
--   Memory helper functions exist but are not currently wired into the
-    session flow.
--   Wake-word detection is not yet implemented.
--   The ESP32 sleeps after a `SLEEP` command and does not currently
-    implement a wake-word flow.
--   Audio tuning values are hardware and room dependent.
+- Wake-word detection is still under development.
+- Audio latency depends on network conditions.
+- Some configuration values are currently hardcoded during development.
+- IR transmission range can be improved with a transistor driver stage.
 
 ## Credits
 
