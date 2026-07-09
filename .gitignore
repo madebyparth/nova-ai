@@ -52,5 +52,6 @@ desktop.ini
 *.pcm
 *.mp3
 *.mp4
+!assets/demo.mp4
 *.mov
 *.webm

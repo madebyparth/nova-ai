@@ -23,6 +23,8 @@ hardware such as RGB lighting in real time.
 docs/assets/novaai-demo.gif
 ```
 
+<video src="assets/demo.mp4" controls width="700"></video>
+
 ## Features
 
 -   ESP32 hardware voice endpoint at `/esp32`
