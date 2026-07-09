@@ -1,7 +1,10 @@
 # NovaAI
 
-> **An open-source real-time AI voice assistant combining ESP32
-> hardware, FastAPI, and Gemini Live.**
+[![NovaAI Demo](assets/demo-thumbnail.png)](assets/demo.mp4)
+
+**🎥 Click the image above to watch the full 36-second demo.**
+
+> An open-source ESP32-powered AI voice assistant built with FastAPI and Gemini Live.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-WebSocket-009688?style=for-the-badge&logo=fastapi&logoColor=white)
@@ -15,15 +18,6 @@ It captures audio from an INMP441 microphone, streams it through a
 FastAPI server, receives spoken responses, and controls physical
 hardware such as RGB lighting in real time.
 
-## Demo
-
-> 🚧 Demo GIF coming soon.
-
-``` text
-docs/assets/novaai-demo.gif
-```
-
-<video src="assets/demo.mp4" controls width="700"></video>
 
 ## Features
 
