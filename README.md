@@ -33,6 +33,10 @@ hardware such as RGB lighting in real time.
 - IR-based RGB lighting control
 - Graceful sleep/session handling
 
+## ⭐ Support
+
+If you found this project useful or interesting, consider giving it a ⭐ on GitHub. It helps more people discover the project and motivates further development.
+
 ## Why This Exists
 
 Most AI assistants live behind apps, laptops, and cloud dashboards.
