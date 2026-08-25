@@ -1,14 +1,17 @@
 # NovaAI
 
+[![Watch the NovaAI Demo](assets/demo-thumbnail.png)](https://youtu.be/atcwI0s3jn0)
+
 <p align="center">
 <b>▶ Click the thumbnail to watch the 36-second demo.</b>
 </p>
 
 > An open-source ESP32 AI voice assistant powered by Gemini Live, with real-time voice conversations, hardware control, and Gemini function calling.
 
-
-
-\
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-WebSocket-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![ESP32](https://img.shields.io/badge/ESP32-I2S%20Voice-000000?style=for-the-badge&logo=espressif&logoColor=white)
+![Gemini](https://img.shields.io/badge/Gemini-Live%20API-4285F4?style=for-the-badge&logo=google&logoColor=white)
 
 NovaAI is a physical AI voice assistant built around an ESP32.
 
@@ -18,16 +21,16 @@ Nova can also control connected hardware through Gemini function calling, includ
 
 ## Features
 
-* 🎙️ Real-time voice conversations with Gemini Live
-* ⚡ ESP32 ↔ FastAPI WebSocket communication
-* 🎧 INMP441 I2S microphone input at 16 kHz PCM
-* 🔊 MAX98357A I2S speaker output at 24 kHz PCM
-* 🗣️ Barge-in support while Nova is speaking
-* 💡 WS2812B LED status indicators
-* 🤖 Gemini function calling
-* 💡 IR-based RGB lighting control
-* 📡 Low-latency local network communication
-* 😴 Graceful sleep/session handling
+- 🎙️ Real-time voice conversations with Gemini Live
+- ⚡ ESP32 ↔ FastAPI WebSocket communication
+- 🎧 INMP441 I2S microphone input at 16 kHz PCM
+- 🔊 MAX98357A I2S speaker output at 24 kHz PCM
+- 🗣️ Barge-in support while Nova is speaking
+- 💡 WS2812B LED status indicators
+- 🤖 Gemini function calling
+- 💡 IR-based RGB lighting control
+- 📡 Low-latency local network communication
+- 😴 Graceful sleep/session handling
 
 ---
 
@@ -39,14 +42,14 @@ This section is all you need to get NovaAI running.
 
 You will need:
 
-| Component       | Model             |
-| --------------- | ----------------- |
+| Component | Model |
+|---|---|
 | Microcontroller | ESP32 NodeMCU-32S |
-| Microphone      | INMP441           |
-| Amplifier       | MAX98357A         |
-| Speaker         | 4Ω speaker        |
-| LED Ring        | WS2812B, 12 LEDs  |
-| IR LED          | 940nm IR LED      |
+| Microphone | INMP441 |
+| Amplifier | MAX98357A |
+| Speaker | 4Ω speaker |
+| LED Ring | WS2812B, 12 LEDs |
+| IR LED | 940nm IR LED |
 
 Connect the hardware using the wiring diagrams below.
 
@@ -77,12 +80,6 @@ Then install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
-```
-
-If you are using a version of the repository without `requirements.txt`, install the dependencies manually:
-
-```bash
-pip install fastapi uvicorn google-genai
 ```
 
 ---
@@ -140,7 +137,7 @@ const char* password = "mypassword123";
 
 The ESP32 also needs to know where the FastAPI server is running.
 
-Find the server address in `NovaAI.ino` and replace it with the **local IP address of the computer running ****`app.py`**.
+Find the server address in `NovaAI.ino` and replace it with the **local IP address of the computer running `app.py`**.
 
 For example:
 
@@ -156,7 +153,7 @@ const char* server_ip = "192.168.1.100";
 
 Download and install the latest Arduino IDE:
 
-https://www.arduino.cc/en/software
+[Arduino IDE](https://www.arduino.cc/en/software)
 
 Open:
 
@@ -208,9 +205,9 @@ Install these libraries through:
 
 Required libraries:
 
-* `WebSockets`
-* `Adafruit NeoPixel`
-* `IRremoteESP8266`
+- `WebSockets`
+- `Adafruit NeoPixel`
+- `IRremoteESP8266`
 
 The ESP32 board package also provides the required I2S functionality.
 
@@ -277,24 +274,24 @@ That's it.
 
 ## INMP441 Microphone
 
-| INMP441 | ESP32   |
-| ------- | ------- |
-| VCC     | 3.3V    |
-| GND     | GND     |
-| WS      | GPIO 5  |
-| SCK     | GPIO 18 |
-| SD      | GPIO 32 |
-| L/R     | GND     |
+| INMP441 | ESP32 |
+|---|---|
+| VCC | 3.3V |
+| GND | GND |
+| WS | GPIO 5 |
+| SCK | GPIO 18 |
+| SD | GPIO 32 |
+| L/R | GND |
 
 ## MAX98357A Amplifier
 
-| MAX98357A | ESP32   |
-| --------- | ------- |
-| VIN       | 5V      |
-| GND       | GND     |
-| LRC       | GPIO 19 |
-| BCLK      | GPIO 21 |
-| DIN       | GPIO 22 |
+| MAX98357A | ESP32 |
+|---|---|
+| VIN | 5V |
+| GND | GND |
+| LRC | GPIO 19 |
+| BCLK | GPIO 21 |
+| DIN | GPIO 22 |
 
 Speaker:
 
@@ -305,34 +302,34 @@ SPK− → Speaker −
 
 ## WS2812B LED Ring
 
-| WS2812B | ESP32         |
-| ------- | ------------- |
-| DI      | GPIO 4        |
-| 5V      | 5V            |
-| GND     | GND           |
-| DO      | Not connected |
+| WS2812B | ESP32 |
+|---|---|
+| DI | GPIO 4 |
+| 5V | 5V |
+| GND | GND |
+| DO | Not connected |
 
 ## IR LED
 
-| IR LED      | ESP32   |
-| ----------- | ------- |
-| Anode (+)   | GPIO 25 |
-| Cathode (-) | GND     |
+| IR LED | ESP32 |
+|---|---|
+| Anode (+) | GPIO 25 |
+| Cathode (-) | GND |
 
 Use an appropriate current-limiting resistor and driver circuitry where required.
 
 ## GPIO Summary
 
-| GPIO | Function         |
-| ---: | ---------------- |
-|    4 | WS2812B LED Ring |
-|    5 | INMP441 WS       |
-|   18 | INMP441 SCK      |
-|   19 | MAX98357A LRC    |
-|   21 | MAX98357A BCLK   |
-|   22 | MAX98357A DIN    |
-|   25 | IR LED           |
-|   32 | INMP441 SD       |
+| GPIO | Function |
+|---:|---|
+| 4 | WS2812B LED Ring |
+| 5 | INMP441 WS |
+| 18 | INMP441 SCK |
+| 19 | MAX98357A LRC |
+| 21 | MAX98357A BCLK |
+| 22 | MAX98357A DIN |
+| 25 | IR LED |
+| 32 | INMP441 SD |
 
 ---
 
@@ -364,19 +361,19 @@ ESP32 --> IR
 
 The ESP32 handles the physical side of Nova:
 
-* microphone input
-* speaker output
-* LED animations
-* IR transmission
-* Wi-Fi communication
+- microphone input
+- speaker output
+- LED animations
+- IR transmission
+- Wi-Fi communication
 
 The FastAPI server handles the AI side:
 
-* ESP32 WebSocket communication
-* Gemini Live connection
-* real-time audio streaming
-* Gemini function calls
-* hardware commands
+- ESP32 WebSocket communication
+- Gemini Live connection
+- real-time audio streaming
+- Gemini function calls
+- hardware commands
 
 This separation keeps the ESP32 lightweight while allowing the server to handle the heavier AI communication.
 
@@ -413,19 +410,19 @@ NovaAI/
 
 Check:
 
-* Wi-Fi SSID and password
-* ESP32 is within range
-* the network is 2.4 GHz compatible
-* the ESP32 is receiving power
+- Wi-Fi SSID and password
+- ESP32 is within range
+- the network is 2.4 GHz compatible
+- the ESP32 is receiving power
 
 ### ESP32 connects to Wi-Fi but not the server
 
 Check:
 
-* your computer and ESP32 are on the same network
-* the server IP in `NovaAI.ino` is correct
-* `app.py` is running
-* port `8000` is accessible through your firewall
+- your computer and ESP32 are on the same network
+- the server IP in `NovaAI.ino` is correct
+- `app.py` is running
+- port `8000` is accessible through your firewall
 
 ### No audio input
 
@@ -454,32 +451,32 @@ Also verify the amplifier and speaker have the correct power and common ground.
 
 Check that:
 
-* your Gemini API key is configured correctly
-* the API key has not expired/reached its limits
-* the server is running
-* the server has internet access
+- your Gemini API key is configured correctly
+- the API key has not expired/reached its limits
+- the server is running
+- the server has internet access
 
 ---
 
 # Limitations
 
-* Wake-word detection is still under development.
-* Audio latency depends on network conditions.
-* The current development configuration stores some values directly in source files.
-* IR transmission range can be improved with a proper transistor driver stage.
-* The project currently expects the FastAPI server to be running on a local computer.
+- Wake-word detection is still under development.
+- Audio latency depends on network conditions.
+- The current development configuration stores some values directly in source files.
+- IR transmission range can be improved with a proper transistor driver stage.
+- The project currently expects the FastAPI server to be running on a local computer.
 
 ---
 
 # Roadmap
 
-* [ ] Wake-word detection
-* [ ] Lower end-to-end audio latency
-* [ ] Improved IR transmission range
-* [ ] Backend modularization
-* [ ] Docker support
-* [ ] Authentication for remote deployments
-* [ ] More hardware integrations
+- [ ] Wake-word detection
+- [ ] Lower end-to-end audio latency
+- [ ] Improved IR transmission range
+- [ ] Backend modularization
+- [ ] Docker support
+- [ ] Authentication for remote deployments
+- [ ] More hardware integrations
 
 ---
 
@@ -487,15 +484,15 @@ Check that:
 
 For deeper technical details:
 
-* [Architecture](docs/Architecture.md)
-* [API](docs/API.md)
-* [Protocol](docs/Protocol.md)
-* [Deployment](docs/Deployment.md)
-* [Troubleshooting](docs/Troubleshooting.md)
-* [Project Structure](docs/ProjectStructure.md)
-* [Security](docs/Security.md)
-* [Diagrams](docs/Diagrams.md)
-* [Future Ideas](docs/FutureIdeas.md)
+- [Architecture](docs/Architecture.md)
+- [API](docs/API.md)
+- [Protocol](docs/Protocol.md)
+- [Deployment](docs/Deployment.md)
+- [Troubleshooting](docs/Troubleshooting.md)
+- [Project Structure](docs/ProjectStructure.md)
+- [Security](docs/Security.md)
+- [Diagrams](docs/Diagrams.md)
+- [Future Ideas](docs/FutureIdeas.md)
 
 ---
 
@@ -503,7 +500,7 @@ For deeper technical details:
 
 Built by **Parth**.
 
-NovaAI is an open-source personal project exploring real time AI, embedded systems, and human to computer interaction.
+NovaAI is an open-source personal project exploring real-time AI, embedded systems, and human-computer interaction.
 
 ## License
 
